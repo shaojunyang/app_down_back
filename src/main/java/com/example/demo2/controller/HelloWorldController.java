@@ -3,6 +3,7 @@ package com.example.demo2.controller;
 import com.example.demo2.dao.MenuMapper;
 import com.example.demo2.en.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,7 @@ public class HelloWorldController {
     @Autowired
     private MenuMapper menuMapper;
 
+    @Cacheable(value = "user-key")
     @RequestMapping("/hello")
     public List<Menu> index() {
         List<Menu> menus = menuMapper.find();

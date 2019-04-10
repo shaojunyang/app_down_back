@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
 @Configuration
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
-    @Override
+
     @Bean
     public KeyGenerator keyGenerator() {
         return new KeyGenerator() {

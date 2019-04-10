@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  * @author yangshaojun
  * @ClassName TestRedis
  * @Description
- * @create 2019-04-10 上午 11:58
+ * @create 2019-04-10 下午 15:16
  * @Version 1.0
  **/
 
@@ -37,18 +37,30 @@ public class TestRedis {
 
     @Test
     public void testObj() throws Exception {
-        Menu user = new Menu();
-        ValueOperations<String, Menu> operations = redisTemplate.opsForValue();
+        Menu user=new Menu();
+        user.setIcon("212");
+        ValueOperations<String, Menu> operations=redisTemplate.opsForValue();
         operations.set("com.neox", user);
-        operations.set("com.neo.f", user, 1, TimeUnit.SECONDS);
-        Thread.sleep(1000);
+        operations.set("com.neo.f", user,1, TimeUnit.SECONDS);
+        Thread.sleep(2000);
         //redisTemplate.delete("com.neo.f");
-        boolean exists = redisTemplate.hasKey("com.neo.f");
-        if (exists) {
+        boolean exists=redisTemplate.hasKey("com.neo.f");
+        if(exists){
             System.out.println("exists is true");
-        } else {
+        }else{
             System.out.println("exists is false");
         }
-        // Assert.assertEquals("aa", operations.get("com.neo.f").getUserName());
+       // Assert.assertEquals("aa", operations.get("com.neo.f").getUserName());
+    }
+
+
+
+
+     @Test
+    public void testObj11() throws Exception {
+        ValueOperations<String, Menu> operations=redisTemplate.opsForValue();
+         Menu menu = operations.get("user-key");
+         System.out.println(menu);
+         // Assert.assertEquals("aa", operations.get("com.neo.f").getUserName());
     }
 }
