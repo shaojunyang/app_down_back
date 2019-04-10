@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @Version 1.0
  **/
 
-@Configuration
+//@Configuration
 public class RabbitConfig {
 
     @Bean
