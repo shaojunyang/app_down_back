@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo2.dao.AppMapper">
+    <sql id="Base_Column_List">
+        app_stroge_url,
+        icon_url,
+        app_plist,
+        api_token,
+        `desc`,
+        id,
+        `name`,
+        version,
+        short_id,
+        create_time,
+        update_time,
+        `type`,
+        password
+    </sql>
+    <resultMap id="BaseResultMap" type="com.example.demo2.en.App">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="version" property="version" jdbcType="VARCHAR"/>
+        <result column="short_id" property="shortId" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.example.demo2.en.AppWithBLOBs" extends="BaseResultMap">
+        <result column="app_stroge_url" property="appStrogeUrl" jdbcType="LONGVARCHAR"/>
+        <result column="icon_url" property="iconUrl" jdbcType="LONGVARCHAR"/>
+        <result column="app_plist" property="appPlist" jdbcType="LONGVARCHAR"/>
+        <result column="api_token" property="apiToken" jdbcType="LONGVARCHAR"/>
+        <result column="desc" property="desc" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Blob_Column_List">
+    app_stroge_url, icon_url, app_plist, api_token, desc
+  </sql>
+    <insert id="insert" parameterType="com.example.demo2.en.AppWithBLOBs">
+    insert into app (id, name, version, 
+      short_id, create_time, update_time, 
+      type, password, app_stroge_url, 
+      icon_url, app_plist, api_token, 
+      desc)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
+      #{shortId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{type,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{appStrogeUrl,jdbcType=LONGVARCHAR}, 
+      #{iconUrl,jdbcType=LONGVARCHAR}, #{appPlist,jdbcType=LONGVARCHAR}, #{apiToken,jdbcType=LONGVARCHAR}, 
+      #{desc,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.example.demo2.en.AppWithBLOBs">
+        insert into app
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+            <if test="shortId != null">
+                short_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="appStrogeUrl != null">
+                app_stroge_url,
+            </if>
+            <if test="iconUrl != null">
+                icon_url,
+            </if>
+            <if test="appPlist != null">
+                app_plist,
+            </if>
+            <if test="apiToken != null">
+                api_token,
+            </if>
+            <if test="desc != null">
+                desc,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=VARCHAR},
+            </if>
+            <if test="shortId != null">
+                #{shortId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="appStrogeUrl != null">
+                #{appStrogeUrl,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="iconUrl != null">
+                #{iconUrl,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="appPlist != null">
+                #{appPlist,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="apiToken != null">
+                #{apiToken,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="desc != null">
+                #{desc,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!--auto generated by codehelper on 2019-04-13-->
+    <select id="find" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        from app
+    </select>
+
+    <!--auto generated by codehelper on 2019-04-13-->
+</mapper>
