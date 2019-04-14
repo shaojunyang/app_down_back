@@ -7,8 +7,6 @@ public class App {
 
     private String name;
 
-    private String version;
-
     private String shortId;
 
     private Date createTime;
@@ -33,14 +31,6 @@ public class App {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version == null ? null : version.trim();
     }
 
     public String getShortId() {

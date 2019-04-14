@@ -55,7 +55,8 @@ public class AppController {
                 return ServerResponse.createBySuccessMessage(targetFilename);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            log.error("上传文件失败", e.getMessage(), e);
         }
 
         return ServerResponse.createByErrorMessage("上传文件失败");
@@ -79,14 +80,57 @@ public class AppController {
         return appService.list(pageNum, pageSize, orderBy, dateangeStartValue, dateangeEndValue, keyword);
     }
 
-    @RequestMapping("/add")
+
+    @RequestMapping("/detail")
     @ResponseBody
-    public ServerResponse<String> list(HttpServletRequest request,
-                                       AppWithBLOBs app
+    public ServerResponse<AppWithBLOBs> detail(HttpServletRequest request,
+                                               AppWithBLOBs app
     ) {
 
         // 查询列表 并返回A
-        return appService.add(app);
+        try {
+            return appService.detail(app);
+        } catch (Exception e) {
+//            e.printStackTrace();
+            log.error("查看应用详情错误", e.getMessage(), e);
+        }
+
+
+        return ServerResponse.createByErrorMessage("新建app失败");
     }
 
+    @RequestMapping("/add")
+    @ResponseBody
+    public ServerResponse<String> add(HttpServletRequest request,
+                                      AppWithBLOBs app
+    ) {
+
+        // 查询列表 并返回A
+        try {
+            return appService.add(app);
+        } catch (Exception e) {
+//            e.printStackTrace();
+            log.error("新建app失败", e.getMessage(), e);
+        }
+
+
+        return ServerResponse.createByErrorMessage("新建app失败");
+    }
+
+    @RequestMapping("/check")
+    @ResponseBody
+    public ServerResponse<String> check(HttpServletRequest request,
+                                        AppWithBLOBs app
+    ) {
+
+        // 查询列表 并返回A
+        try {
+            return appService.check(app);
+        } catch (Exception e) {
+            log.error("检查密码异常", e.getMessage(), e);
+//            e.printStackTrace();
+        }
+
+        return ServerResponse.createByErrorMessage("密码错误");
+    }
 }

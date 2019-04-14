@@ -25,45 +25,34 @@ public class Const {
             "<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n" +
             "<plist version=\"1.0\">\n" +
             "<dict>\n" +
-            "    <key>items</key>\n" +
-            "    <array>\n" +
-            "        <dict>\n" +
-            "            <key>assets</key>\n" +
-            "            <array>\n" +
-            "                <dict>\n" +
-            "                    <key>kind</key>\n" +
-            "                    <string>software-package</string>\n" +
-            "                    <key>url</key>\n" +
-            "                    <string>${ipa}</string>\n" +
-            "                </dict>\n" +
-            "                <dict>\n" +
-            "                    <key>kind</key>\n" +
-            "                    <string>display-image</string>\n" +
-            "                    <key>url</key>\n" +
-            "                    <string>https://asset-araya.oss-cn-beijing.aliyuncs.com/app/png/ios.jpg</string>\n" +
-            "                </dict>\n" +
-            "                <dict>\n" +
-            "                    <key>kind</key>\n" +
-            "                    <string>full-size-image</string>\n" +
-            "                    <key>url</key>\n" +
-            "                    <string>https://asset-araya.oss-cn-beijing.aliyuncs.com/app/png/ios.jpg</string>\n" +
-            "                </dict>\n" +
-            "            </array>\n" +
-            "            <key>metadata</key>\n" +
-            "            <dict>\n" +
-            "                <key>bundle-identifier</key>\n" +
-            "                <string>com.ianisme.myapp</string>\n" +
-            "                <key>bundle-version</key>\n" +
-            "                <string>${version}</string>\n" +
-            "                <key>kind</key>\n" +
-            "                <string>software</string>\n" +
-            "                <key>title</key>\n" +
-            "                <string>${title}</string>\n" +
-            "            </dict>\n" +
-            "        </dict>\n" +
-            "    </array>\n" +
+            "\t<key>items</key>\n" +
+            "\t<array>\n" +
+            "\t\t<dict>\n" +
+            "\t\t\t<key>assets</key>\n" +
+            "\t\t\t<array>\n" +
+            "\t\t\t\t<dict>\n" +
+            "\t\t\t\t\t<key>kind</key>\n" +
+            "\t\t\t\t\t<string>software-package</string>\n" +
+            "\t\t\t\t\t<key>url</key>\n" +
+            "\t\t\t\t\t<string>${ipa}</string>\n" +
+            "\t\t\t\t</dict>\n" +
+            "\t\t\t</array>\n" +
+            "\t\t\t<key>metadata</key>\n" +
+            "\t\t\t<dict>\n" +
+            "\t\t\t\t<key>bundle-identifier</key>\n" +
+            "\t\t\t\t<string>com.fnst.smartwork</string>\n" +
+            "\t\t\t\t<key>bundle-version</key>\n" +
+            "\t\t\t\t<string>${version}</string>\n" +
+            "\t\t\t\t<key>kind</key>\n" +
+            "\t\t\t\t<string>software</string>\n" +
+            "\t\t\t\t<key>title</key>\n" +
+            "\t\t\t\t<string>${title}</string>\n" +
+            "\t\t\t</dict>\n" +
+            "\t\t</dict>\n" +
+            "\t</array>\n" +
             "</dict>\n" +
             "</plist>";
+
     public static final Object HOST = "";
 
 

@@ -1,25 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.demo2.dao.AppMapper">
-    <sql id="Base_Column_List">
-        app_stroge_url,
-        icon_url,
-        app_plist,
-        api_token,
-        `desc`,
-        id,
-        `name`,
-        version,
-        short_id,
-        create_time,
-        update_time,
-        `type`,
-        password
-    </sql>
     <resultMap id="BaseResultMap" type="com.example.demo2.en.App">
-        <result column="id" property="id" jdbcType="INTEGER"/>
+        <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
-        <result column="version" property="version" jdbcType="VARCHAR"/>
         <result column="short_id" property="shortId" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
@@ -27,26 +11,46 @@
         <result column="password" property="password" jdbcType="VARCHAR"/>
     </resultMap>
     <resultMap id="ResultMapWithBLOBs" type="com.example.demo2.en.AppWithBLOBs" extends="BaseResultMap">
+        <result column="version" property="version" jdbcType="LONGVARCHAR"/>
         <result column="app_stroge_url" property="appStrogeUrl" jdbcType="LONGVARCHAR"/>
         <result column="icon_url" property="iconUrl" jdbcType="LONGVARCHAR"/>
         <result column="app_plist" property="appPlist" jdbcType="LONGVARCHAR"/>
         <result column="api_token" property="apiToken" jdbcType="LONGVARCHAR"/>
         <result column="desc" property="desc" jdbcType="LONGVARCHAR"/>
+        <result column="short_id_desc" property="shortIdDesc" jdbcType="LONGVARCHAR"/>
+        <result column="install_url" property="installUrl" jdbcType="LONGVARCHAR"/>
     </resultMap>
-    <sql id="Blob_Column_List">
-    app_stroge_url, icon_url, app_plist, api_token, desc
+    <sql id="Base_Column_List">
+    id, `name`, short_id, create_time, update_time, `type`, password
   </sql>
+    <sql id="Blob_Column_List">
+    version, app_stroge_url, icon_url, app_plist, api_token, `desc`, short_id_desc, install_url
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from app
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from app
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
     <insert id="insert" parameterType="com.example.demo2.en.AppWithBLOBs">
-    insert into app (id, name, version, 
-      short_id, create_time, update_time, 
-      type, password, app_stroge_url, 
+    insert into app (id, `name`, short_id,
+      create_time, update_time, `type`,
+      password, version, app_stroge_url, 
       icon_url, app_plist, api_token, 
-      desc)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
-      #{shortId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{type,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{appStrogeUrl,jdbcType=LONGVARCHAR}, 
+      `desc`, short_id_desc, install_url
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{shortId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{version,jdbcType=LONGVARCHAR}, #{appStrogeUrl,jdbcType=LONGVARCHAR}, 
       #{iconUrl,jdbcType=LONGVARCHAR}, #{appPlist,jdbcType=LONGVARCHAR}, #{apiToken,jdbcType=LONGVARCHAR}, 
-      #{desc,jdbcType=LONGVARCHAR})
+      #{desc,jdbcType=LONGVARCHAR}, #{shortIdDesc,jdbcType=LONGVARCHAR}, #{installUrl,jdbcType=LONGVARCHAR}
+      )
   </insert>
     <insert id="insertSelective" parameterType="com.example.demo2.en.AppWithBLOBs">
         insert into app
@@ -56,9 +60,6 @@
             </if>
             <if test="name != null">
                 name,
-            </if>
-            <if test="version != null">
-                version,
             </if>
             <if test="shortId != null">
                 short_id,
@@ -75,6 +76,9 @@
             <if test="password != null">
                 password,
             </if>
+            <if test="version != null">
+                version,
+            </if>
             <if test="appStrogeUrl != null">
                 app_stroge_url,
             </if>
@@ -90,6 +94,12 @@
             <if test="desc != null">
                 desc,
             </if>
+            <if test="shortIdDesc != null">
+                short_id_desc,
+            </if>
+            <if test="installUrl != null">
+                install_url,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -97,9 +107,6 @@
             </if>
             <if test="name != null">
                 #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="version != null">
-                #{version,jdbcType=VARCHAR},
             </if>
             <if test="shortId != null">
                 #{shortId,jdbcType=VARCHAR},
@@ -116,6 +123,9 @@
             <if test="password != null">
                 #{password,jdbcType=VARCHAR},
             </if>
+            <if test="version != null">
+                #{version,jdbcType=LONGVARCHAR},
+            </if>
             <if test="appStrogeUrl != null">
                 #{appStrogeUrl,jdbcType=LONGVARCHAR},
             </if>
@@ -131,15 +141,114 @@
             <if test="desc != null">
                 #{desc,jdbcType=LONGVARCHAR},
             </if>
+            <if test="shortIdDesc != null">
+                #{shortIdDesc,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="installUrl != null">
+                #{installUrl,jdbcType=LONGVARCHAR},
+            </if>
         </trim>
     </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.demo2.en.AppWithBLOBs">
+        update app
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="shortId != null">
+                short_id = #{shortId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                version = #{version,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="appStrogeUrl != null">
+                app_stroge_url = #{appStrogeUrl,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="iconUrl != null">
+                icon_url = #{iconUrl,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="appPlist != null">
+                app_plist = #{appPlist,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="apiToken != null">
+                api_token = #{apiToken,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="desc != null">
+                desc = #{desc,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="shortIdDesc != null">
+                short_id_desc = #{shortIdDesc,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="installUrl != null">
+                install_url = #{installUrl,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.demo2.en.AppWithBLOBs">
+    update app
+    set name = #{name,jdbcType=VARCHAR},
+      short_id = #{shortId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      version = #{version,jdbcType=LONGVARCHAR},
+      app_stroge_url = #{appStrogeUrl,jdbcType=LONGVARCHAR},
+      icon_url = #{iconUrl,jdbcType=LONGVARCHAR},
+      app_plist = #{appPlist,jdbcType=LONGVARCHAR},
+      api_token = #{apiToken,jdbcType=LONGVARCHAR},
+      desc = #{desc,jdbcType=LONGVARCHAR},
+      short_id_desc = #{shortIdDesc,jdbcType=LONGVARCHAR},
+      install_url = #{installUrl,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.demo2.en.App">
+    update app
+    set name = #{name,jdbcType=VARCHAR},
+      short_id = #{shortId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 
     <!--auto generated by codehelper on 2019-04-13-->
     <select id="find" resultMap="ResultMapWithBLOBs">
         select
+        <include refid="Blob_Column_List"/>
+        ,
         <include refid="Base_Column_List"/>
         from app
     </select>
 
     <!--auto generated by codehelper on 2019-04-13-->
+    <select id="countByIdAndPassword" resultType="java.lang.Integer">
+    select count(1)
+    from app
+    where id=#{id,jdbcType=INTEGER} and password=#{password,jdbcType=VARCHAR}
+  </select>
+
+    <!--auto generated by MybatisCodeHelper on 2019-04-13-->
+    <select id="findByShortId" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Blob_Column_List"/>
+        ,
+        <include refid="Base_Column_List"/>
+        from app
+        where short_id=#{shortId,jdbcType=VARCHAR}
+    </select>
 </mapper>

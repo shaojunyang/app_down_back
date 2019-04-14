@@ -1,15 +1,19 @@
 package com.example.demo2.dao;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.example.demo2.en.RootAdmin;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface RootAdminMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(RootAdmin record);
+
+    List<Integer> findId();
+
+
 
     int insertSelective(RootAdmin record);
 
@@ -21,4 +25,7 @@ public interface RootAdminMapper {
 
 
     int updateByPrimaryKey(RootAdmin record);
+
+
+
 }

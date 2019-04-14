@@ -1,6 +1,8 @@
 package com.example.demo2.en;
 
 public class AppWithBLOBs extends App {
+    private String version;
+
     private String appStrogeUrl;
 
     private String iconUrl;
@@ -10,6 +12,18 @@ public class AppWithBLOBs extends App {
     private String apiToken;
 
     private String desc;
+
+    private String shortIdDesc;
+
+    private String installUrl;
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version == null ? null : version.trim();
+    }
 
     public String getAppStrogeUrl() {
         return appStrogeUrl;
@@ -49,5 +63,21 @@ public class AppWithBLOBs extends App {
 
     public void setDesc(String desc) {
         this.desc = desc == null ? null : desc.trim();
+    }
+
+    public String getShortIdDesc() {
+        return shortIdDesc;
+    }
+
+    public void setShortIdDesc(String shortIdDesc) {
+        this.shortIdDesc = shortIdDesc == null ? null : shortIdDesc.trim();
+    }
+
+    public String getInstallUrl() {
+        return installUrl;
+    }
+
+    public void setInstallUrl(String installUrl) {
+        this.installUrl = installUrl == null ? null : installUrl.trim();
     }
 }
