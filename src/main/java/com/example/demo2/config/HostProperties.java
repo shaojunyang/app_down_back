@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 /**
  * 自定义配置文件
  */
-@Component
 @Configuration
-@ConfigurationProperties(prefix = "host.")
-@PropertySource("classpath:host.properties")
+@Component
+@PropertySource(value = "classpath:host.properties")
+@ConfigurationProperties(prefix = "host")
 public class HostProperties {
 
     private String name;
