@@ -21,7 +21,7 @@
             <fileNamePattern>/developer/log/back-app-admin/app.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
             <!--<fileNamePattern>/Library/apache-tomcat-7.0.82/logs/app.log.%d{yyyy-MM-dd}.gz</fileNamePattern>-->
             <!--<fileNamePattern>/root/Downloads/apache-tomcat-7.0.73/logs/app.log.%d{yyyy-MM-dd}.gz</fileNamePattern>-->
-            <append>true</append>
+<!--            <append>true</append>-->
             <maxHistory>10</maxHistory>
         </rollingPolicy>
         <encoder>
@@ -43,7 +43,7 @@
             <!--<fileNamePattern>/Library/apache-tomcat-7.0.82/logs/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>-->
             <!--<fileNamePattern>/root/Downloads/apache-tomcat-7.0.73/logs/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>-->
             <!--<fileNamePattern>d:/applog/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>-->
-            <append>true</append>
+<!--            <append>true</append>-->
             <maxHistory>10</maxHistory>
         </rollingPolicy>
         <encoder>
