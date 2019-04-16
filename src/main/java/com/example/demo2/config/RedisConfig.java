@@ -16,8 +16,8 @@ import java.lang.reflect.Method;
  * @Version 1.0
  **/
 
-@Configuration
-@EnableCaching
+//@Configuration
+//@EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean
