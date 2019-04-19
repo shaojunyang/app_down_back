@@ -13,8 +13,8 @@
     <appender name="app" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--<File>d:/applog/app.log</File>-->
         <!--<File>/developer/apache-tomcat-7.0.73/logs/app.log</File>-->
-        <File>C:\\developer\\log\\demo.log</File>
-        <!--<File>/developer/log/app.log</File>-->
+        <!--        <File>C:\\developer\\log\\demo.log</File>-->
+        <File>/developer/log/app.log</File>
         <!--<File>/root/Downloads/apache-tomcat-7.0.73/logs/app.log</File>-->
         <!--<File>/Library/apache-tomcat-7.0.82/logs/app.log</File>-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -34,8 +34,8 @@
     <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--<File>d:/applog/error.log</File>-->
         <!--<File>/developer/apache-tomcat-7.0.73/logs/error.log</File>-->
-        <!--<File>/developer/log/error.log</File>-->
-        <File>C:\\developer\\log\\error.log</File>
+        <File>/developer/log/error.log</File>
+        <!--        <File>C:\\developer\\log\\error.log</File>-->
         <!--<File>/root/Downloads/apache-tomcat-7.0.73/logs/error.log</File>-->
         <!--<File>/Library/apache-tomcat-7.0.82/logs/error.log</File>-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">

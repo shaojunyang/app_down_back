@@ -195,7 +195,7 @@ public class AliOSSUtil {
      * @throws FileNotFoundException
      * @author leon 2016年12月26日 下午3:33:13
      */
-    public static String upload(InputStream inputStream, String originalFilename) throws FileNotFoundException {
+    public static String upload(InputStream inputStream, String originalFilename) {
         if (inputStream == null) {
             return null;
         }
@@ -219,6 +219,9 @@ public class AliOSSUtil {
 //                log.error("URL编码失败");
 //            }
             // 上传文件
+
+
+
             PutObjectResult result = ossClient.putObject(new PutObjectRequest(BUCKET_NAME, fileUrl, inputStream));
             if (null != result) {
 
@@ -234,8 +237,10 @@ public class AliOSSUtil {
                 return FILE_HOST + path;
             }
         } catch (OSSException oe) {
+            log.error("上传文件失败");
             log.error(oe.getMessage());
         } catch (ClientException ce) {
+            log.error("上传文件失败");
             log.error(ce.getMessage());
         } finally {
             // 关闭OSS服务，一定要关闭
