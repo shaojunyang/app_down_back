@@ -229,11 +229,11 @@ public class AliOSSUtil {
 //                String url = ossClient.generatePresignedUrl(BUCKET_NAME, fileUrl, expiration).toString();
                 URL generatePresignedUrl = ossClient.generatePresignedUrl(BUCKET_NAME, fileUrl, expiration);
 
-                String path = generatePresignedUrl.getPath();
+//                String path = generatePresignedUrl.getPath();
 
                 log.info("上传文件成功,文件路径 " + FILE_HOST + fileUrl);
-//                return FILE_HOST + fileUrl;
-                return FILE_HOST + path;
+                return FILE_HOST + fileUrl;
+//                return FILE_HOST + path;
             }
         } catch (OSSException oe) {
             log.error("上传文件失败");

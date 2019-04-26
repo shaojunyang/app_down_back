@@ -3,6 +3,7 @@ package com.example.demo2.controller;
 import com.example.demo2.common.ServerResponse;
 import com.example.demo2.en.AppWithBLOBs;
 import com.example.demo2.service.impl.IOSAppServiceImpl;
+import com.example.demo2.util.ChineseToEnglishUtil;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -50,7 +51,7 @@ public class AppController {
             InputStream inputStream = file.getInputStream();
 
             // 上传文件、获取 上传之后的文件名
-            String targetFilename = appService.upload(inputStream, originalFilename);
+            String targetFilename = appService.upload(inputStream, ChineseToEnglishUtil.getPingYin(originalFilename));
             if (!StringUtils.isEmpty(targetFilename)) {
                 return ServerResponse.createBySuccessMessage(targetFilename);
             }
