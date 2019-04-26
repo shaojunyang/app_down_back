@@ -45,13 +45,13 @@ public class AppController {
         }
 
         //原始文件名
-        String originalFilename = file.getOriginalFilename();
+        String originalFilename = StringUtils.replaceAll(file.getOriginalFilename()," +","");
 
         try {
             InputStream inputStream = file.getInputStream();
 
             // 上传文件、获取 上传之后的文件名
-            String targetFilename = appService.upload(inputStream, StringUtils.trim(ChineseToEnglishUtil.getPingYin(originalFilename)));
+            String targetFilename = appService.upload(inputStream, ChineseToEnglishUtil.getPingYin(originalFilename));
             if (!StringUtils.isEmpty(targetFilename)) {
                 return ServerResponse.createBySuccessMessage(targetFilename);
             }
@@ -137,5 +137,8 @@ public class AppController {
 
 
     public static void main(String[] args) {
+        String test = " 2 233  322 3232 ";
+        String replace = StringUtils.replaceAll(test, " +", "");
+        System.out.println(replace);
     }
 }
