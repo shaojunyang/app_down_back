@@ -160,13 +160,13 @@ public class AliOSSUtil {
                 ossClient.createBucket(createBucketRequest);
             }
             // 创建文件路径
-            String fileUrl = null;
-            try {
-                fileUrl = dir + URLEncoder.encode(originalFilename, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
+            String fileUrl = originalFilename;
+//            try {
+//                fileUrl = dir + URLEncoder.encode(originalFilename, "UTF-8");
+//            } catch (UnsupportedEncodingException e) {
 //                e.printStackTrace();
-                log.error("URL编码失败");
-            }
+//                log.error("URL编码失败");
+//            }
             // 上传文件
             PutObjectResult result = ossClient.putObject(new PutObjectRequest(BUCKET_NAME, fileUrl, inputStream));
             if (null != result) {
@@ -219,7 +219,6 @@ public class AliOSSUtil {
 //                log.error("URL编码失败");
 //            }
             // 上传文件
-
 
 
             PutObjectResult result = ossClient.putObject(new PutObjectRequest(BUCKET_NAME, fileUrl, inputStream));

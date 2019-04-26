@@ -6,6 +6,7 @@ import com.example.demo2.config.HostProperties;
 import com.example.demo2.dao.AppMapper;
 import com.example.demo2.en.AppWithBLOBs;
 import com.example.demo2.util.AliOSSUtil;
+import com.example.demo2.util.ChineseToEnglishUtil;
 import com.example.demo2.util.UUIDUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -78,7 +79,7 @@ public class IOSAppServiceImpl {
 
 
         // 把PLIST文件上传到 OSS
-        String plistURL = this.uploadPlistFile(plistString, app.getName() + app.getVersion() + ".plist");
+        String plistURL = this.uploadPlistFile(plistString, ChineseToEnglishUtil.getPingYin(app.getName()) + app.getVersion() + ".plist");
 
 
         // 组装PLISt文件为文件下载链接
