@@ -79,7 +79,7 @@ public class IOSAppServiceImpl {
 
 
         // 把PLIST文件上传到 OSS
-        String plistURL = this.uploadPlistFile(plistString, ChineseToEnglishUtil.getPingYin(app.getName()) + app.getVersion() + ".plist");
+        String plistURL = this.uploadPlistFile(plistString, StringUtils.trim(ChineseToEnglishUtil.getPingYin(app.getName())) + app.getVersion() + ".plist");
 
 
         // 组装PLISt文件为文件下载链接

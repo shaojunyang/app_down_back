@@ -51,7 +51,7 @@ public class AppController {
             InputStream inputStream = file.getInputStream();
 
             // 上传文件、获取 上传之后的文件名
-            String targetFilename = appService.upload(inputStream, ChineseToEnglishUtil.getPingYin(originalFilename));
+            String targetFilename = appService.upload(inputStream, StringUtils.trim(ChineseToEnglishUtil.getPingYin(originalFilename)));
             if (!StringUtils.isEmpty(targetFilename)) {
                 return ServerResponse.createBySuccessMessage(targetFilename);
             }
@@ -133,5 +133,9 @@ public class AppController {
         }
 
         return ServerResponse.createByErrorMessage("密码错误");
+    }
+
+
+    public static void main(String[] args) {
     }
 }
