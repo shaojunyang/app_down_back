@@ -40,11 +40,11 @@ public class IOSAppServiceImpl {
 
     public ServerResponse<PageInfo<AppWithBLOBs>> list(Integer pageNum, Integer pageSize, String orderBy, String dateangeStartValue, String dateangeEndValue, String keyword) {
 
-        if (StringUtils.isEmpty(keyword)) {
-            keyword = null;
-        } else {
-            keyword = "%" + keyword + "%";
-        }
+//        if (StringUtils.isEmpty(keyword)) {
+//            keyword = null;
+//        } else {
+//            keyword = "%" + keyword + "%";
+//        }
 
 
         Page<Object> page = PageHelper.startPage(pageNum, pageSize);
@@ -61,7 +61,8 @@ public class IOSAppServiceImpl {
         // 分页
 
         // sql  根据 用户查询所有的日志列表
-        List<AppWithBLOBs> SystemLogList = appMapper.find();
+
+        List<AppWithBLOBs> SystemLogList = appMapper.findByNameContaining(keyword);
 
         // 构造 pageInfo
         PageInfo<AppWithBLOBs> pageInfo = new PageInfo(page.getResult());
@@ -167,5 +168,14 @@ public class IOSAppServiceImpl {
 //        }
 //
 
+    }
+
+    public ServerResponse<String> update(AppWithBLOBs app) {
+        int i = appMapper.updateByPrimaryKeySelective(app);
+        if (i > 0) {
+
+            return ServerResponse.createBySuccessMessage("更新成功");
+        }
+        return ServerResponse.createByErrorMessage("更新失败");
     }
 }

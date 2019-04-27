@@ -100,6 +100,24 @@ public class AppController {
         return ServerResponse.createByErrorMessage("新建app失败");
     }
 
+     @RequestMapping("/update")
+    @ResponseBody
+    public ServerResponse<String> update(HttpServletRequest request,
+                                      AppWithBLOBs app
+    ) {
+
+        // 查询列表 并返回A
+        try {
+            return appService.update(app);
+        } catch (Exception e) {
+//            e.printStackTrace();
+            log.error("编辑失败", e.getMessage(), e);
+        }
+
+
+        return ServerResponse.createByErrorMessage("编辑失败");
+    }
+
     @RequestMapping("/add")
     @ResponseBody
     public ServerResponse<String> add(HttpServletRequest request,

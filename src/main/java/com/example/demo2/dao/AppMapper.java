@@ -15,6 +15,9 @@ public interface AppMapper {
 
 
     AppWithBLOBs findByShortId(@Param("shortId") String shortId);
+    List<AppWithBLOBs> findByNameContaining(@Param("containingName")String containingName);
+
+
 
 
     int insert(AppWithBLOBs record);
