@@ -131,6 +131,43 @@ public class IOSAppServiceImpl {
     }
 
 
+    /**
+     * 功能描述: 删除app
+     *
+     * @MethodName del
+     * @param: [app]
+     * @return: com.example.demo2.common.ServerResponse<java.lang.String>
+     * @auther: Yangshaojun
+     * @date: 2019/4/29 0029 下午 16:31
+     */
+    public ServerResponse<String> del(AppWithBLOBs app) {
+
+        if (app.getAppPlist() == null){
+            app = appMapper.selectByPrimaryKey(app.getId());
+        }
+
+        // 先删除文件
+        String appStrogeUrl = app.getAppStrogeUrl();
+        String appPlist = app.getAppPlist();
+        boolean deleteFile = AliOSSUtil.deleteFile(appStrogeUrl);
+        if (deleteFile) {
+            boolean deleteFile1 = AliOSSUtil.deleteFile(appPlist);
+            if (deleteFile1) {
+
+                int delete = appMapper.deleteByPrimaryKey(app.getId());
+                if (delete > 0) {
+                    return ServerResponse.createBySuccessMessage("删除成功");
+                }
+                return ServerResponse.createByErrorMessage("删除失败");
+            }
+        }
+
+
+        return ServerResponse.createByErrorMessage("删除失败");
+
+    }
+
+
     public ServerResponse<String> check(AppWithBLOBs app) {
 
         Integer integer = appMapper.countByIdAndPassword(app.getId(), app.getPassword());

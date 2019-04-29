@@ -249,10 +249,36 @@ public class AliOSSUtil {
 
     }
 
+    public static boolean deleteFile(String filePath) {
+
+        String fileKey = filePath.replaceAll(FILE_HOST,"");
+
+        OSSClient ossClient = new OSSClient(END_POINT, ACCESS_KEY_ID, ACCESS_KEY_SECRET);
+        boolean exist = ossClient.doesObjectExist(BUCKET_NAME, fileKey);
+        if (!exist) {
+            log.error("文件不存在,filePath={}", fileKey);
+            return false;
+        }
+        log.info("删除文件,filePath={}", fileKey);
+        ossClient.deleteObject(BUCKET_NAME, fileKey);
+        ossClient.shutdown();
+        return true;
+    }
+
     public static void main(String[] args) {
 //        File file = new File("C:\\Users\\HiWin10\\Searches\\Downloads\\img\\arrows.png");
 //        String upload = AliOSSUtil.upload(file);
 //        System.out.println(upload);
+        OSSClient ossClient = new OSSClient(END_POINT, ACCESS_KEY_ID, ACCESS_KEY_SECRET);
+        String filePath = "app/plist/pin221.2.plist";
+        boolean exist = ossClient.doesObjectExist(BUCKET_NAME, filePath);
+        if (!exist) {
+            log.error("文件不存在,filePath={}", filePath);
+        }
+        log.info("删除文件,filePath={}", filePath);
+        ossClient.deleteObject(BUCKET_NAME, filePath);
+        ossClient.shutdown();
     }
+
 
 }

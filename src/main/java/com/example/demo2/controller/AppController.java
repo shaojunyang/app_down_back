@@ -10,7 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,7 +34,6 @@ public class AppController {
      * @auther: yangshaojun
      * @date: 2018/8/21 下午8:48
      */
-    @ResponseBody
     @RequestMapping("/upload")
     public ServerResponse<String> upload(HttpServletRequest request, MultipartFile file) {
 
@@ -45,7 +43,7 @@ public class AppController {
         }
 
         //原始文件名
-        String originalFilename = StringUtils.replaceAll(file.getOriginalFilename()," +","");
+        String originalFilename = StringUtils.replaceAll(file.getOriginalFilename(), " +", "");
 
         try {
             InputStream inputStream = file.getInputStream();
@@ -67,7 +65,6 @@ public class AppController {
 
 
     @RequestMapping("/list")
-    @ResponseBody
     public ServerResponse<PageInfo<AppWithBLOBs>> list(HttpServletRequest request,
                                                        @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                        @RequestParam(value = "dateangeStartValue", required = false) String dateangeStartValue,
@@ -83,7 +80,6 @@ public class AppController {
 
 
     @RequestMapping("/detail")
-    @ResponseBody
     public ServerResponse<AppWithBLOBs> detail(HttpServletRequest request,
                                                AppWithBLOBs app
     ) {
@@ -100,10 +96,9 @@ public class AppController {
         return ServerResponse.createByErrorMessage("新建app失败");
     }
 
-     @RequestMapping("/update")
-    @ResponseBody
+    @RequestMapping("/update")
     public ServerResponse<String> update(HttpServletRequest request,
-                                      AppWithBLOBs app
+                                         AppWithBLOBs app
     ) {
 
         // 查询列表 并返回A
@@ -119,7 +114,6 @@ public class AppController {
     }
 
     @RequestMapping("/add")
-    @ResponseBody
     public ServerResponse<String> add(HttpServletRequest request,
                                       AppWithBLOBs app
     ) {
@@ -136,8 +130,24 @@ public class AppController {
         return ServerResponse.createByErrorMessage("新建app失败");
     }
 
+    @RequestMapping("/del")
+    public ServerResponse<String> del(HttpServletRequest request,
+                                      AppWithBLOBs app
+    ) {
+
+        // 查询列表 并返回A
+        try {
+            return appService.del(app);
+        } catch (Exception e) {
+//            e.printStackTrace();
+            log.error("删除app失败", e.getMessage(), e);
+        }
+
+
+        return ServerResponse.createByErrorMessage("删除app失败");
+    }
+
     @RequestMapping("/check")
-    @ResponseBody
     public ServerResponse<String> check(HttpServletRequest request,
                                         AppWithBLOBs app
     ) {
